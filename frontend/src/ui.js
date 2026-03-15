@@ -6,21 +6,13 @@ import { useState, useRef, useCallback } from 'react';
 import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
 import { useStore } from './store';
 import { shallow } from 'zustand/shallow';
-import { InputNode } from './nodes/inputNode';
-import { LLMNode } from './nodes/llmNode';
-import { OutputNode } from './nodes/outputNode';
-import { TextNode } from './nodes/textNode';
+import { nodeTypes } from './nodes';
+import { isRegisteredNodeType } from './nodes/validators';
 
 import 'reactflow/dist/style.css';
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
-const nodeTypes = {
-  customInput: InputNode,
-  llm: LLMNode,
-  customOutput: OutputNode,
-  text: TextNode,
-};
 
 const selector = (state) => ({
   nodes: state.nodes,
@@ -45,40 +37,44 @@ export const PipelineUI = () => {
     onConnect
   } = useStore(selector, shallow);
 
-  const getInitNodeData = (nodeID, type) => {
-    let nodeData = { id: nodeID, nodeType: `${type}` };
-    return nodeData;
-  }
+  const getInitNodeData = (nodeID, type) => ({ id: nodeID, nodeType: type });
 
   const onDrop = useCallback(
     (event) => {
       event.preventDefault();
 
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-      if (event?.dataTransfer?.getData('application/reactflow')) {
-        const appData = JSON.parse(event.dataTransfer.getData('application/reactflow'));
-        const type = appData?.nodeType;
+      const rawData = event?.dataTransfer?.getData('application/reactflow');
+      if (!rawData) return;
 
-        // check if the dropped element is valid
-        if (typeof type === 'undefined' || !type) {
-          return;
-        }
-
-        const position = reactFlowInstance.project({
-          x: event.clientX - reactFlowBounds.left,
-          y: event.clientY - reactFlowBounds.top,
-        });
-
-        const nodeID = getNodeID(type);
-        const newNode = {
-          id: nodeID,
-          type,
-          position,
-          data: getInitNodeData(nodeID, type),
-        };
-
-        addNode(newNode);
+      let appData;
+      try {
+        appData = JSON.parse(rawData);
+      } catch {
+        console.error('[onDrop] Drag payload is not valid JSON:', rawData);
+        return;
       }
+
+      const type = appData?.nodeType;
+      if (!isRegisteredNodeType(type, nodeTypes)) {
+        console.error(`[onDrop] Unknown node type "${type}". Drop ignored.`);
+        return;
+      }
+
+      const position = reactFlowInstance.project({
+        x: event.clientX - reactFlowBounds.left,
+        y: event.clientY - reactFlowBounds.top,
+      });
+
+      const nodeID = getNodeID(type);
+      const newNode = {
+        id: nodeID,
+        type,
+        position,
+        data: getInitNodeData(nodeID, type),
+      };
+
+      addNode(newNode);
     },
     [reactFlowInstance]
   );
