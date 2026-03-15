@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useUpdateNodeInternals } from 'reactflow';
 import { Typography } from '@mui/material';
 import { BaseNode } from './BaseNode';
 import { NODE_CONFIGS } from './nodeConfigs';
@@ -10,9 +11,18 @@ import './TextNode.css';
 export const TextNode = ({ id, data }) => {
   const [text, setText] = useState(data?.text ?? '{{input}}');
   const updateTextNode = useStore((s) => s.updateTextNode);
+  const updateNodeInternals = useUpdateNodeInternals();
   const config = NODE_CONFIGS.text;
   const uiConfig = NODE_UI_CONFIGS.text ?? {};
   const accentVar = uiConfig.accentToken ? `var(--node-accent-${uiConfig.accentToken})` : 'var(--node-accent)';
+
+  // Tell React Flow to re-read handle positions whenever the text changes.
+  // Without this, React Flow uses stale cached handle positions for edge
+  // snapping when variables are added or removed, causing edges to land
+  // "between" handles or not snap to the right one.
+  useEffect(() => {
+    updateNodeInternals(id);
+  }, [id, text, updateNodeInternals]);
 
   const handleTextChange = (e) => {
     const value = e.target.value;
