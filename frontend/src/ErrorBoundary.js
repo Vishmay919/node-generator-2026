@@ -1,4 +1,6 @@
 import React from 'react';
+import { Grid, Typography } from '@mui/material';
+import './ErrorBoundary.css';
 
 /**
  * React Error Boundary: catches errors during render and in lifecycle.
@@ -14,10 +16,18 @@ export class ErrorBoundary extends React.Component {
   render() {
     if (this.state.error) {
       return (
-        <div style={{ padding: 24, fontFamily: 'system-ui', maxWidth: 560, margin: '40px auto' }}>
-          <h2 style={{ color: '#c00', margin: '0 0 8px' }}>Something went wrong</h2>
-          <p style={{ margin: 0 }}>{this.state.error?.message ?? String(this.state.error)}</p>
-        </div>
+        <Grid container direction="column" className="error_boundary">
+          <Grid size={12}>
+            <Typography variant="h6" color="error" className="error_boundary_title">
+              Something went wrong
+            </Typography>
+          </Grid>
+          <Grid size={12}>
+            <Typography variant="body1" className="error_boundary_message">
+              {this.state.error?.message ?? String(this.state.error)}
+            </Typography>
+          </Grid>
+        </Grid>
       );
     }
     return this.props.children;

@@ -1,0 +1,7 @@
+.node_card {
+  border-radius: var(--node-border-radius);
+  box-shadow: var(--node-shadow);
+  border: 1px solid var(--node-border-color);
+  position: relative;
+  overflow: visible;
+}

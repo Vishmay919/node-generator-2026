@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Typography } from '@mui/material';
 import { withNodeConfig } from './WithNodeConfig.jsx';
 
 const OutputNodeBody = ({ id, data }) => {
@@ -8,7 +9,7 @@ const OutputNodeBody = ({ id, data }) => {
   return (
     <>
       <label>
-        Name:
+        <Typography variant="label" component="span">Name:</Typography>
         <input
           type="text"
           value={currName}
@@ -16,7 +17,7 @@ const OutputNodeBody = ({ id, data }) => {
         />
       </label>
       <label>
-        Type:
+        <Typography variant="label" component="span">Type:</Typography>
         <select value={outputType} onChange={(e) => setOutputType(e.target.value)}>
           <option value="Text">Text</option>
           <option value="File">Image</option>

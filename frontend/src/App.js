@@ -1,3 +1,5 @@
+import { Grid } from '@mui/material';
+import './App.css';
 import { PipelineToolbar } from './toolbar';
 import { PipelineUI } from './ui';
 import { SubmitButton } from './submit';
@@ -6,12 +8,12 @@ import { ConfigStatusBar } from './ConfigStatusBar';
 
 function App() {
   return (
-    <div>
-      <PipelineToolbar />
-      <PipelineUI />
-      <SubmitButton />
-      <ConfigStatusBar errors={configErrors} />
-    </div>
+    <Grid container direction="column" className="app_root">
+        <PipelineToolbar />
+        <PipelineUI />
+        <SubmitButton />
+        <ConfigStatusBar errors={configErrors} />
+    </Grid>
   );
 }
 

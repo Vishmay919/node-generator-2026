@@ -1,15 +1,26 @@
-// toolbar.js
-
+import { Grid } from '@mui/material';
+import './toolbar.css';
 import { DraggableNode } from './draggableNode';
 import { toolbarNodes } from './nodes';
 
 export const PipelineToolbar = () => {
   return (
-    <div style={{ padding: '10px' }}>
-      <div style={{ marginTop: '20px', display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-        {toolbarNodes.map((n) => (
-          <DraggableNode key={n.type} type={n.type} label={n.label} />
-        ))}
+    <div className="toolbar">
+      <div className="toolbar_scroll">
+        <Grid
+          container
+          className="toolbar_nodes"
+          direction="row"
+          wrap="nowrap"
+          spacing={2}
+          alignItems="center"
+        >
+          {toolbarNodes.map((n) => (
+            <Grid size="auto" key={n.type}>
+              <DraggableNode type={n.type} label={n.label} />
+            </Grid>
+          ))}
+        </Grid>
       </div>
     </div>
   );

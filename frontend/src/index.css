@@ -11,3 +11,48 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  /* Spacing scale (multiples of 8) */
+  --spacing-unit: 8px;
+  --spacing-1: 8px;
+  --spacing-2: 16px;
+  --spacing-3: 24px;
+  --spacing-4: 32px;
+  --spacing-5: 40px;
+
+  /* Semantic colors */
+  --color-error: #d32f2f;
+
+  --canvas-bg: #0f1117;
+  --node-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --toolbar-bg: #1C2536;
+  --toolbar-border: rgba(255, 255, 255, 0.08);
+
+  /* Status bar */
+  --status-bar-bg: #f59e0b;
+  --status-bar-text: #1f2937;
+  --status-bar-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+
+  /* Draggable node (toolbar item) */
+  --draggable-node-bg: #252e3f;
+  --draggable-node-label: #e2e8f0;
+  --draggable-node-radius: var(--spacing-1);
+
+  /* Default node chrome */
+  --node-border-radius: 10px;
+  --node-border-color: rgba(255, 255, 255, 0.12);
+  --node-accent: #9ca3af;
+  /* Per-type accent tokens (referenced by nodeUIConfigs accentToken) */
+  --node-accent-input: #3b82f6;
+  --node-accent-output: #8b5cf6;
+  --node-accent-llm: #10b981;
+  --node-accent-text: #f59e0b;
+  --node-accent-filter: #ef4444;
+  --node-accent-merge: #06b6d4;
+  --node-accent-note: #eab308;
+  --node-accent-api: #6366f1;
+  --node-accent-timer: #ec4899;
+  /* Optional per-type overrides (e.g. note rounder) */
+  --node-border-radius-note: 16px;
+}

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Typography } from '@mui/material';
 import { withNodeConfig } from './WithNodeConfig.jsx';
 
 const TextNodeBody = ({ data }) => {
@@ -6,7 +7,7 @@ const TextNodeBody = ({ data }) => {
 
   return (
     <label>
-      Text:
+      <Typography variant="label" component="span">Text:</Typography>
       <input
         type="text"
         value={currText}

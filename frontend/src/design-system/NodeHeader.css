@@ -1,0 +1,4 @@
+.node_header {
+  border-top: 3px solid var(--node-accent);
+  padding: var(--spacing-1) var(--spacing-2);
+}

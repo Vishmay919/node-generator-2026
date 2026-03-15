@@ -1,33 +1,28 @@
-// draggableNode.js
+import { Grid, Typography } from '@mui/material';
+import './draggableNode.css';
 
 export const DraggableNode = ({ type, label }) => {
-    const onDragStart = (event, nodeType) => {
-      const appData = { nodeType }
-      event.target.style.cursor = 'grabbing';
-      event.dataTransfer.setData('application/reactflow', JSON.stringify(appData));
-      event.dataTransfer.effectAllowed = 'move';
-    };
-  
-    return (
-      <div
-        className={type}
-        onDragStart={(event) => onDragStart(event, type)}
-        onDragEnd={(event) => (event.target.style.cursor = 'grab')}
-        style={{ 
-          cursor: 'grab', 
-          minWidth: '80px', 
-          height: '60px',
-          display: 'flex', 
-          alignItems: 'center', 
-          borderRadius: '8px',
-          backgroundColor: '#1C2536',
-          justifyContent: 'center', 
-          flexDirection: 'column'
-        }} 
-        draggable
-      >
-          <span style={{ color: '#fff' }}>{label}</span>
-      </div>
-    );
+  const onDragStart = (event, nodeType) => {
+    const appData = { nodeType };
+    event.dataTransfer.setData('application/reactflow', JSON.stringify(appData));
+    event.dataTransfer.effectAllowed = 'move';
   };
+
+  return (
+    <Grid
+      container
+      className={`draggable_node ${type}`}
+      onDragStart={(event) => onDragStart(event, type)}
+      draggable
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Grid size="auto">
+        <Typography variant="bodySmall" color="textSecondary" className="draggable_node_label">
+          {label}
+        </Typography>
+      </Grid>
+    </Grid>
+  );
+};
   

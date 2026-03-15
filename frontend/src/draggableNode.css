@@ -1,0 +1,29 @@
+.draggable_node {
+  cursor: grab;
+  min-width: 100px;
+  width: 100px;
+  height: 56px;
+  padding: 0 var(--spacing-2);
+  border-radius: var(--draggable-node-radius);
+  background: var(--draggable-node-bg);
+  user-select: none;
+  transition: transform 0.1s, box-shadow 0.1s;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.draggable_node:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--node-shadow);
+}
+
+.draggable_node:active {
+  cursor: grabbing;
+}
+
+.draggable_node_label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}

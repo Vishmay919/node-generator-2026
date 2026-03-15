@@ -1,0 +1,22 @@
+.toolbar {
+  width: 100%;
+  max-width: 100vw;
+  background: var(--toolbar-bg);
+  padding: var(--spacing-2);
+  border-bottom: 1px solid var(--toolbar-border);
+}
+
+.toolbar_scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.toolbar_scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.toolbar_nodes {
+  width: max-content;
+}

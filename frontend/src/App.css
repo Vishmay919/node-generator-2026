@@ -1,0 +1,16 @@
+.app_root {
+  height: 100vh;
+  background: var(--canvas-bg);
+}
+
+.app_canvas {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.app_canvas_inner {
+  width: 100vw;
+  height: 70vh;
+}
