@@ -7,6 +7,7 @@ import {
     applyEdgeChanges,
     MarkerType,
   } from 'reactflow';
+import { parseTextVariables } from './nodes/utils';
 
 export const useStore = create((set, get) => ({
     nodes: [],
@@ -49,6 +50,17 @@ export const useStore = create((set, get) => ({
   
           return node;
         }),
+      });
+    },
+    updateTextNode: (nodeId, text) => {
+      const validHandleIds = new Set(parseTextVariables(text).map((v) => `${nodeId}-${v}`));
+      set({
+        nodes: get().nodes.map((node) =>
+          node.id === nodeId ? { ...node, data: { ...node.data, text } } : node
+        ),
+        edges: get().edges.filter(
+          (e) => e.target !== nodeId || !e.targetHandle || validHandleIds.has(e.targetHandle)
+        ),
       });
     },
   }));
