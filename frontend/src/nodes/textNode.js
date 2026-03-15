@@ -1,20 +1,36 @@
 import { useState } from 'react';
 import { Typography } from '@mui/material';
-import { withNodeConfig } from './WithNodeConfig.jsx';
+import { BaseNode } from './BaseNode';
+import { NODE_CONFIGS } from './nodeConfigs';
+import { NODE_UI_CONFIGS } from './nodeUIConfigs';
+import { buildTextHandles } from './utils';
+import './TextNode.css';
 
-const TextNodeBody = ({ data }) => {
-  const [currText, setCurrText] = useState(data?.text || '{{input}}');
+export const TextNode = ({ id, data }) => {
+  const [text, setText] = useState(data?.text ?? '{{input}}');
+  const config = NODE_CONFIGS.text;
+  const uiConfig = NODE_UI_CONFIGS.text ?? {};
+  const accentVar = uiConfig.accentToken ? `var(--node-accent-${uiConfig.accentToken})` : 'var(--node-accent)';
 
   return (
-    <label>
-      <Typography variant="label" component="span">Text:</Typography>
-      <input
-        type="text"
-        value={currText}
-        onChange={(e) => setCurrText(e.target.value)}
+    <BaseNode
+      id={id}
+      title={config.label}
+      handles={buildTextHandles(text)}
+      accentCssVar={accentVar}
+      borderRadius={uiConfig.borderRadius}
+      className={uiConfig.className}
+      style={uiConfig.style}
+    >
+      <Typography variant="label" component="span" className="text_node_label">
+        Text:
+      </Typography>
+      <textarea
+        className="text_node_input"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Use {{ variableName }} for inputs."
       />
-    </label>
+    </BaseNode>
   );
 };
-
-export const TextNode = withNodeConfig('text')(TextNodeBody);

@@ -1,0 +1,25 @@
+.text_node_label {
+  display: block;
+  margin-bottom: var(--spacing-1, 8px);
+}
+
+.text_node_input {
+  field-sizing: content;
+  max-width: 400px;
+  max-height: 300px;
+  overflow: auto;
+  width: 100%;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  font: inherit;
+  resize: none;
+  border: 1px solid var(--node-border-color);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+}
+
+.text_node_input:focus {
+  outline: none;
+  border-color: var(--node-accent-text, var(--node-accent));
+}

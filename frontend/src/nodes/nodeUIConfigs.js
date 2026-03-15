@@ -5,7 +5,7 @@ export const NODE_UI_CONFIGS = {
   customInput: { accentToken: 'input' },
   customOutput: { accentToken: 'output' },
   llm: { accentToken: 'llm' },
-  text: { accentToken: 'text' },
+  text: { accentToken: 'text', className: 'node_card--fit' },
   filter: { accentToken: 'filter' },
   merge: { accentToken: 'merge' },
   note: { accentToken: 'note', borderRadius: 'var(--node-border-radius-note)' },

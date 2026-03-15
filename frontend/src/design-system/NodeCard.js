@@ -13,8 +13,8 @@ export const NodeCard = ({
   const combinedStyle = {
     '--node-accent': accentCssVar,
     '--node-border-radius': borderRadius ?? 'var(--node-border-radius)',
-    width,
-    height,
+    ...(width != null && { width }),
+    ...(height != null && { height }),
     ...style,
   };
   return (

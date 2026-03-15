@@ -5,3 +5,10 @@
   position: relative;
   overflow: visible;
 }
+
+.node_card.node_card--fit {
+  width: fit-content;
+  height: fit-content;
+  min-width: 220px;
+  min-height: 80px;
+}
